@@ -1,28 +1,31 @@
 #!/usr/bin/python3
+
 import sys
 
 
+def open_file(file_path):
+    with open(file_path, 'r') as file:
+        lines = file.readlines()
+    numbers = []
+    for line in lines:
+        numbers.append(int(line))
+    return numbers
+
+
 def factorize(n):
-    i = 2
-    if n < 2:
-        return
-
-    while n % i:
-        i += 1
-    print("{:.0f}={:.0f}*{:.0f}".format(n, n / i, i))
+    for i in range(2, n):
+        if n == ((n // i) * i):
+            print("{}={}*{}".format(n, (n // i), i))
+            break
 
 
-if len(sys.argv) != 2:
+def get_number(numbers_list):
+    for i in numbers_list:
+        factorize(i)
+
+
+if len(sys.argv) == 2:
+    get_number(open_file(sys.argv[1]))
+else:
     print("Usage: python factors.py <file>")
     sys.exit(1)
-
-try:
-    with open(sys.argv[1]) as file:
-        line = file.readline()
-
-        while line != "":
-            num = int(line.split('\n')[0])
-            factorize(num)
-            line = file.readline()
-except:
-    pass
